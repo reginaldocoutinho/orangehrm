@@ -11,7 +11,7 @@ Cypress.Commands.add('pathPunch', () => {
   cy.get(':nth-child(4) > .oxd-main-menu-item').click()
   cy.get('.oxd-topbar-body-nav > ul > :nth-child(2)').click()
   cy.get(':nth-child(2) > .oxd-topbar-body-nav-tab-link').click()
-
+  cy.get('.oxd-date-input > .oxd-icon').should('be.visible')
 })
 
 Cypress.Commands.add('punchIn', () => {
@@ -27,5 +27,5 @@ Cypress.Commands.add('punchIn', () => {
   cy.get('.oxd-textarea').focus()
   cy.get('.oxd-textarea').type('Teste de apontamento de entrada 09/21/2025')
   cy.get('.oxd-button').click()
-  cy.wait(5000)
+  
 })

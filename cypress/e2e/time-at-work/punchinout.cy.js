@@ -1,14 +1,12 @@
-context('Realizar apontamento de inicio e fim de expediente.', () => {
+describe('Realizar apontamento de inicio e fim de expediente.', () => {
    beforeEach(() => {
     //  cy.session('loginSession', ()=> {
-        cy.login() 
+        cy.login()
+        cy.pathPunch()
     //  })    
     })
     it('Realizar apontamento de entrada', () => {
         //act
-        cy.get(':nth-child(4) > .oxd-main-menu-item').click()
-        cy.get('.oxd-topbar-body-nav > ul > :nth-child(2)').click()
-        cy.get(':nth-child(2) > .oxd-topbar-body-nav-tab-link').click()
         cy.get('.oxd-date-input > .oxd-input').clear()
         cy.get('.oxd-date-input > .oxd-input').type('2025-25-09')
         cy.get('.oxd-time-input > .oxd-input').clear()
@@ -25,8 +23,7 @@ context('Realizar apontamento de inicio e fim de expediente.', () => {
 
         
     }),
-    it.only('Realizar o apontamento de saida', () => {
-        cy.pathPunch()
+    it('Realizar o apontamento de saida', () => {
         cy.get('.orangehrm-card-container > .oxd-text--h6').then(($el) => {const texto = $el.text()  
             // pega o texto do elemento
 
@@ -60,5 +57,28 @@ context('Realizar apontamento de inicio e fim de expediente.', () => {
         }
         })
 
-})
+    })
+    it('Apontamento da Jornada com o campo  DATE vazio', () => {
+        
+        cy.get('.oxd-date-input > .oxd-input').clear()
+        cy.get('.oxd-button').click()
+        cy.get('.oxd-input-group > .oxd-text').should('be.visible')
+    })
+    it('Realizar apontamento utilizando o botão today para selecionar a data', () => {
+        //act
+        cy.get('.oxd-date-input > .oxd-input').click()
+        cy.contains('Today').click()
+        cy.get('.oxd-button').click()
+        
+    })
+    it('Fechar o calendário', () => {
+        cy.get('.oxd-date-input > .oxd-input').click()
+        cy.contains('Close').click()
+    })
+    it.only('Apontamento com o campo Time vazio', () => {
+        cy.get('.oxd-time-input > .oxd-input').clear()
+        cy.get('.oxd-button').click()
+    })
+
+
 })
